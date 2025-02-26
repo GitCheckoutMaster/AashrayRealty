@@ -1,0 +1,1 @@
+export let ADMIN = ["jaymistry31170@gmail.com"];
