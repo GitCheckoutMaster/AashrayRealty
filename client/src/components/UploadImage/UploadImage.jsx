@@ -9,11 +9,11 @@ const UploadImage = ({
   nextStep,
   prevStep,
 }) => {
-  const [imageURL, setImageURL] = useState(propertyDetails.image);
+  const [imageURL, setImageURL] = useState(propertyDetails.images);
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const handleNext = () => {
-    setPropertyDetails((prev) => ({ ...prev, image: imageURL }));
+    setPropertyDetails((prev) => ({ ...prev, images: imageURL }));
     nextStep();
   };
   useEffect(() => {
@@ -22,15 +22,19 @@ const UploadImage = ({
       {
         cloudName: "meoncloud101",
         uploadPreset: "ml_default",
-        maxFiles: 1,
+        maxFiles: 10,
       },
       (err, result) => {
         if (result.event === "success") {
-          setImageURL(result.info.secure_url);
+          setImageURL((prev) => [...prev, result.info.secure_url]);
         }
       }
     );
   }, []);
+
+  // useEffect( () => {
+  //   console.log(imageURL);
+  // }, [imageURL])
 
   return (
     <div className="flexColCenter uploadWrapper">
@@ -47,7 +51,7 @@ const UploadImage = ({
           className="uploadedImage"
           onClick={() => widgetRef.current?.open()}
         >
-          <img src={imageURL} alt="" />
+          <img src={imageURL[0]} alt="" />
         </div>
       )}
 

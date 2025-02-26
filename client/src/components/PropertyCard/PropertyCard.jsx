@@ -32,7 +32,7 @@ const PropertyCard = ({ card, isDelete }) => {
     }}
     >
       <Heart id={card?.id}/>
-      <img src={card.image} alt="home" />
+      <img src={card.images[0]} alt="home" />
       <span className="secondaryText r-price">
         <span style={{ color: "orange" }}>$</span>
         <span>{card.price}</span>

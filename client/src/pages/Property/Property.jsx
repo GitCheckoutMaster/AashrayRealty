@@ -20,6 +20,7 @@ import WriteUserReview from "../../components/WriteUserReview/WriteUserReview.js
 import ReviewCard from "../../components/ReviewCard/ReviewCard.jsx";
 import AskQuestion from "../../components/AskQuestion/AskQuestion.jsx";
 import QuestionCard from "../../components/QuestionCard/QuestionCard.jsx";
+import ImageSlider from "../../components/ImageSlider/ImageSlider.jsx";
 
 
 const Property = () => {
@@ -129,7 +130,8 @@ const Property = () => {
         </div>
 
         {/* image */}
-        <img src={data?.image} alt="home image" />
+        {/* <img src={data?.image} alt="home image" /> */}
+        <ImageSlider images={data?.images} />
 
         <div className="flexCenter property-details">
           {/* left */}
