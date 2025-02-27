@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { ADMIN } from "../constant.js";
 import { prisma } from "../config/prismaConfig.js";
+import { uploadOnCloudinary } from "../config/cloudinary.js";
 
 export const createUser = asyncHandler(async (req, res) => {
 	let { email } = req.body;
@@ -191,3 +192,38 @@ export const removeAdmin = asyncHandler(async (req, res) => {
 		return res.status(400).send({ message: "Email doesn't exists" });
 	}
 });
+
+// function to get all users
+export const getAllUsers = asyncHandler(async (req, res) => {
+	const users = await prisma.user.findMany();
+	return res.status(200).json(users);
+});
+
+export const editProfile = asyncHandler(async (req, res) => {
+	const { email, name, phoneNumber, address } = req.body;
+	const image = req.file?.path;
+
+  if (!image) {
+    const user = await prisma.user.update({
+      where: { email },
+      data: {
+        name,
+        phoneNumber,
+        address,
+      },
+    });
+    return res.status(200).json(user);
+  }
+  
+	const imgUrl = await uploadOnCloudinary(image);
+	const user = await prisma.user.update({
+		where: { email },
+		data: {
+			name,
+			phoneNumber,
+			address,
+			image: imgUrl.url,
+		},
+	});
+	return res.status(200).json(user);
+})

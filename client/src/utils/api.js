@@ -324,3 +324,32 @@ export const writeAnswer = async (data, token) => {
 		throw error;
 	}
 }
+
+export const getCustomers = async (token, setCustomer) => {
+  try {
+    const res = await api.get(`/user/getCustomers`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    setCustomer(res.data);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const editProfile = async (data, token) => {
+	try {
+		const res = await api.post(`/user/editProfile`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res;
+	} catch (error) {
+		throw error;
+	}
+}

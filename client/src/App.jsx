@@ -13,6 +13,7 @@ import UserDetailContext from "./context/UserDetailContext";
 import Bookings from "./pages/Bookings/Bookings";
 import Favourites from "./pages/Favourites/Favourites";
 import Dashboard from "./pages/AdminDashboard/Dashboard";
+import EditProfile from "./pages/ProfileUpdate/EditProfile";
 
 function App() {
   const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/bookings" element={<Bookings />} />
                 <Route path="/favourites" element={<Favourites />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/profile" element={<EditProfile />} />
               </Route>
             </Routes>
           </Suspense>

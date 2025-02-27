@@ -7,7 +7,7 @@ const ProfileMenu = ({ user, logout }) => {
 	return (
 		<Menu>
 			<Menu.Target>
-				<Avatar src={user?.picture} alt="user image" radius={"xl"} />
+				<Avatar src={user?.image} alt="user image" radius={"xl"} />
 			</Menu.Target>
 			<Menu.Dropdown>
 				<Menu.Item onClick={() => navigate("./favourites", { replace: true })}>
@@ -16,6 +16,10 @@ const ProfileMenu = ({ user, logout }) => {
 
 				<Menu.Item onClick={() => navigate("./bookings", { replace: true })}>
 					Bookings
+				</Menu.Item>
+
+				<Menu.Item onClick={() => navigate("./profile", { replace: true })}>
+					Edit Profile
 				</Menu.Item>
 
 				<Menu.Item

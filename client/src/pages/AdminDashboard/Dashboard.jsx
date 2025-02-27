@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./AdminDashboard.css";
 import AddPropertyModal from "../../components/AddPropertyModal/AddPropertyModal";
 import useAuthCheck from "../../hooks/useAuthCheck";
-import { getResidencyByOwner, addAdmin as addAdminAPI, removeAdmin as removeAdminAPI } from "../../utils/api";
+import { getResidencyByOwner, addAdmin as addAdminAPI, removeAdmin as removeAdminAPI, getCustomers } from "../../utils/api";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
 // swiper imports
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
@@ -15,11 +15,13 @@ const Dashboard = () => {
   const [deleteProperty, setDeleteProperty] = useState(false);
   const [addAdmin, setAddAdmin] = useState(false);
   const [removeAdmin, setRemoveAdmin] = useState(false);
+  const [customerList, setCustomerList] = useState(false);
   
 	const [properties, setProperties] = useState([]);
 	const { validateLogin } = useAuthCheck();
 	const user = JSON.parse(localStorage.getItem("user"));
 	const [loading, setLoading] = useState(false);
+  const [customer, setCustomer] = useState([]);
 
 	if (user.isAdmin === false) {
 		return <div>Unauthorized</div>;
@@ -30,7 +32,9 @@ const Dashboard = () => {
       document.getElementById("removable1").style.display = "none";
       document.getElementById("removable2").style.display = "none";
     }
-	}, []);
+    getCustomers(localStorage.getItem("access_token"), setCustomer);
+    
+  }, []);
 
 	const handleAddPropertyClick = () => {
     setDeleteProperty(false);
@@ -111,6 +115,10 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+const CustomerList = () => {
+
+}
 
 const SlideNextButton = () => {
 	const swiper = useSwiper();

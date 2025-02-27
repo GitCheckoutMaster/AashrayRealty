@@ -12,6 +12,8 @@ model User {
     name             String?
     email            String      @unique
     image            String?
+    phoneNumber      String?
+    address          String?
     isAdmin          Boolean     @default(false)
     canAddAdmin      Boolean     @default(false)
     bookedVisits     Json[]
@@ -22,21 +24,22 @@ model User {
 }
 
 model Residency {
-    id          String    @id @default(auto()) @map("_id") @db.ObjectId
-    title       String
-    description String
-    price       Int
-    address     String
-    city        String
-    country     String
+    id           String    @id @default(auto()) @map("_id") @db.ObjectId
+    title        String
+    description  String
+    price        Int
+    address      String
+    city         String
+    country      String
     images       String[]
-    facilities  Json
-    userEmail   String
-    owner       User      @relation("Owner", fields: [userEmail], references: [email])
-    reviews     Review[]
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-    Queries     Queries[]
+    facilities   Json
+    userEmail    String
+    owner        User      @relation("Owner", fields: [userEmail], references: [email])
+    reviews      Review[]
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @updatedAt
+    Queries      Queries[]
+    propertyType String
 
     @@unique(fields: [address, userEmail])
 }

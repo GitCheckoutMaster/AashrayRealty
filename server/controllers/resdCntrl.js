@@ -13,6 +13,7 @@ export const createResidency = asyncHandler(async (req, res) => {
     facilities,
     images,
     userEmail,
+    propertyType,
   } = req.body.data;
 
   console.log(req.body.data);
@@ -28,6 +29,7 @@ export const createResidency = asyncHandler(async (req, res) => {
         facilities,
         images,
         owner: { connect: { email: userEmail } },
+        propertyType,
       },
     });
 
@@ -201,4 +203,20 @@ export const writeAnswer = asyncHandler(async (req, res) => {
   });
 
   return res.status(200).json(question);
+})
+
+export const getPropertyByType = asyncHandler(async (req, res) => {
+  const { type } = req.body;
+
+  if (!type) {
+    return res.status(400).json({ message: "Type is required" });
+  }
+
+  const properties = await prisma.residency.findMany({
+    where: {
+      propertyType: type,
+    }
+  });
+
+  return res.status(200).json(properties);
 })
