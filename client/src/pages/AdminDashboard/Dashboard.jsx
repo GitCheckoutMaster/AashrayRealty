@@ -3,10 +3,8 @@ import "./AdminDashboard.css";
 import AddPropertyModal from "../../components/AddPropertyModal/AddPropertyModal";
 import useAuthCheck from "../../hooks/useAuthCheck";
 import {
-	getResidencyByOwner,
 	addAdmin as addAdminAPI,
 	removeAdmin as removeAdminAPI,
-	getCustomers,
 } from "../../utils/api";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
 // swiper imports
@@ -29,7 +27,6 @@ const Dashboard = () => {
 			document.getElementById("removable1").style.display = "none";
 			document.getElementById("removable2").style.display = "none";
 		}
-		// getCustomers(localStorage.getItem("access_token"), setCustomer);
 	}, []);
 
 	const handleAddPropertyClick = () => {
@@ -57,25 +54,11 @@ const Dashboard = () => {
 				<div className="sidebar-item" id="removable2">
 					Remove Admin
 				</div>
-				<div className="sidebar-item">Customers</div>
-			</div> 
+				<div className="sidebar-item" onClick={() => navigate("/dashboard/customers")}>
+					Customers
+				</div>
+			</div>
 			<AddPropertyModal opened={addProperty} setOpened={setAddProperty} />
-			{/* <div className="main">
-					{loading && (
-						<div className="wrapper flexCenter" style={{ height: "60vh" }}>
-							<PuffLoader
-								height="80"
-								width="80"
-								radius={1}
-								color="#4066ff"
-								aria-label="puff-loading"
-							/>
-						</div>
-					)}
-					<Properties properties={properties} deleteProperty={deleteProperty} />
-					<AddAdmin addAdmin={addAdmin} />
-					<RemoveAdmin removeAdmin={removeAdmin} />
-				</div> */}
 		</div>
 	);
 };

@@ -1,0 +1,69 @@
+.customer-card {
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+	border: 1px solid #e0e0e0;
+	border-radius: 15px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s;
+}
+
+.admin {
+	background: linear-gradient(90deg, #ffb764, #ece6df);
+}
+
+
+.customer-card-name img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.customer-card-name {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+  width: 350px;
+}
+
+.customer-card-name-details > .id {
+	font-size: 0.8rem;
+	color: #0800fb;
+}
+
+.customer-card-name-details > .name {
+	font-size: 1.2rem;
+	font-weight: bold;
+	letter-spacing: 1.2px;
+}
+
+.customer-card-name-details > .date {
+	font-size: 0.8rem;
+	color: #636262;
+}
+
+.customer-card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 200px;
+}
+
+.customer-card-details > div:first-child {
+  font-size: .6rem;
+  letter-spacing: 1.2px;
+}
+
+.customer-card-details > div:last-child {
+  font-size: 1rem;
+  font-weight: 500;
+  max-width: 200px;
+  max-height: 50px;
+  overflow: hidden;
+}

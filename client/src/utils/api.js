@@ -344,16 +344,14 @@ export const writeAnswer = async (data, token) => {
 	}
 };
 
-export const getCustomers = async (token, setCustomer) => {
+export const getCustomers = async (token) => {
 	try {
 		const res = await api.get(`/user/getCustomers`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
 		});
-
-		setCustomer(res.data);
-		return res.data;
+		return res;
 	} catch (error) {
 		throw error;
 	}

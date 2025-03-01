@@ -35,27 +35,6 @@ const EditProfile = () => {
 			localStorage.getItem("access_token")
 		);
 
-    const authRes = await axios.patch(
-      "https://dev-rbujbb6dqoi1nwk7.us.auth0.com/api/v2/users/" + userSub,
-      {
-        picture: res.data.image,
-      },
-      {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
-          "Content-Type": "application/json",
-        }
-      }
-    )
-
-    console.log(authRes);
-
-    if (authRes.status === 200) {
-      toast.success("Profile updated successfully", {
-				position: "bottom-right",
-			});
-    }
-
 		if (res.status === 200) {
 			toast.success("Profile updated successfully", {
 				position: "bottom-right",

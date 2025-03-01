@@ -12,11 +12,11 @@ import Property from "./pages/Property/Property";
 import UserDetailContext from "./context/UserDetailContext";
 import Bookings from "./pages/Bookings/Bookings";
 import Favourites from "./pages/Favourites/Favourites";
-import Dashboard from "./pages/AdminDashboard/Dashboard";
 import EditProfile from "./pages/ProfileUpdate/EditProfile";
 import AdminLayout from "./components/AdminPageLayout/AdminLayout";
 import DashboardMain from "./pages/DashboardMain/DashboardMain";
 import UpdateProperty from "./pages/UpdateProperty/UpdateProperty";
+import CustomerList from "./pages/CustomerList/CustomerList";
 
 function App() {
   const queryClient = new QueryClient();
@@ -44,6 +44,7 @@ function App() {
                 <Route path="/dashboard" element={<AdminLayout />}>
                   <Route index element={<DashboardMain />} />
                   <Route path="update-property" element={<UpdateProperty />} />
+                  <Route path="customers" element={<CustomerList />} />
                 </Route>
                 <Route path="/profile" element={<EditProfile />} />
               </Route>

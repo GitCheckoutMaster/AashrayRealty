@@ -21,6 +21,8 @@ model User {
     ownedResidencies  Residency[] @relation("Owner")
     queries           Queries[]
     reviews           Review[]
+    createdAt         DateTime    @default(now())
+    updatedAt         DateTime    @updatedAt
 }
 
 model Residency {
