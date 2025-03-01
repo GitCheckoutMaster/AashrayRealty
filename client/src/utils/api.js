@@ -323,33 +323,33 @@ export const writeAnswer = async (data, token) => {
 	} catch (error) {
 		throw error;
 	}
-}
+};
 
 export const getCustomers = async (token, setCustomer) => {
-  try {
-    const res = await api.get(`/user/getCustomers`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+	try {
+		const res = await api.get(`/user/getCustomers`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
 
-    setCustomer(res.data);
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
-}
+		setCustomer(res.data);
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
+};
 
 export const editProfile = async (data, token) => {
 	try {
 		const res = await api.post(`/user/editProfile`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
 
-    return res;
+		return res;
 	} catch (error) {
 		throw error;
 	}
-}
+};

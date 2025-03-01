@@ -49,6 +49,12 @@ export const bookVisit = asyncHandler(async (req, res) => {
 					bookedVisits: { push: { id, date } },
 				},
 			});
+      await prisma.residency.update({
+        where: { id },
+        data: {
+          bookedBy: email,
+        }
+      })
 			res.send("your visit is booked successfully");
 		}
 	} catch (err) {
@@ -92,6 +98,13 @@ export const cancelBooking = asyncHandler(async (req, res) => {
 					bookedVisits: user.bookedVisits,
 				},
 			});
+
+      await prisma.residency.update({
+        where: { id },
+        data: {
+          bookedBy: null,
+        }
+      })
 
 			res.send("Booking cancelled successfully");
 		}

@@ -1,14 +1,13 @@
 import { Container, Modal, Stepper } from "@mantine/core";
 import React, { useState } from "react";
 import AddLocation from "../AddLocation/AddLocation";
-import { useAuth0 } from "@auth0/auth0-react";
 import UploadImage from "../UploadImage/UploadImage";
 import BasicDetails from "../BasicDetails/BasicDetails";
 import Facilities from "../Facilities/Facilities";
 
 const AddPropertyModal = ({ opened, setOpened }) => {
   const [active, setActive] = useState(0);
-  const { user } = useAuth0();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [propertyDetails, setPropertyDetails] = useState({
     title: "",
@@ -23,6 +22,7 @@ const AddPropertyModal = ({ opened, setOpened }) => {
       parkings: 0,
       bathrooms: 0,
     },
+    propertyType: "For Sale",
     userEmail: user?.email,
   });
 

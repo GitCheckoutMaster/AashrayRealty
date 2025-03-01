@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Box, Button, Group, NumberInput } from "@mantine/core";
+import { Box, Button, Group, NumberInput, Select } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import React, { useContext } from "react";
 import UserDetailContext from "../../context/UserDetailContext";
@@ -7,6 +7,8 @@ import useProperties from "../../hooks/useProperties.jsx";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { createResidency } from "../../utils/api";
+
+
 const Facilities = ({
 	prevStep,
 	propertyDetails,
@@ -19,6 +21,7 @@ const Facilities = ({
 			bedrooms: propertyDetails.facilities.bedrooms,
 			parkings: propertyDetails.facilities.parkings,
 			bathrooms: propertyDetails.facilities.bathrooms,
+			propertyType: propertyDetails.propertyType,
 		},
 		validate: {
 			bedrooms: (value) => (value < 1 ? "Must have at least one room" : null),
@@ -27,7 +30,7 @@ const Facilities = ({
 		},
 	});
 
-	const { bedrooms, parkings, bathrooms } = form.values;
+	const { bedrooms, parkings, bathrooms, propertyType } = form.values;
 
 	const handleSubmit = () => {
 		const { hasErrors } = form.validate();
@@ -35,6 +38,7 @@ const Facilities = ({
 			setPropertyDetails((prev) => ({
 				...prev,
 				facilities: { bedrooms, parkings, bathrooms },
+        propertyType,
 			}));
 			mutate();
 		}
@@ -54,6 +58,7 @@ const Facilities = ({
 				{
 					...propertyDetails,
 					facilities: { bedrooms, parkings, bathrooms },
+          propertyType,
 				},
 				token
 			);
@@ -75,6 +80,7 @@ const Facilities = ({
 					parkings: 0,
 					bathrooms: 0,
 				},
+        propertyType: "for sale",
 				userEmail: user?.email,
 			});
 			setOpened(false);
@@ -108,6 +114,14 @@ const Facilities = ({
 					min={0}
 					{...form.getInputProps("bathrooms")}
 				/>
+        <Select
+          label="Property Type"
+          data={[
+            { label: "For Sale", value: "for sale" },
+            { label: "For Rent", value: "for rent" },
+          ]}
+          {...form.getInputProps("propertyType")}
+        />
 				<Group position="center" mt="xl">
 					<Button variant="default" onClick={prevStep}>
 						Back
