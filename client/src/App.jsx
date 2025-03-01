@@ -16,6 +16,7 @@ import Dashboard from "./pages/AdminDashboard/Dashboard";
 import EditProfile from "./pages/ProfileUpdate/EditProfile";
 import AdminLayout from "./components/AdminPageLayout/AdminLayout";
 import DashboardMain from "./pages/DashboardMain/DashboardMain";
+import UpdateProperty from "./pages/UpdateProperty/UpdateProperty";
 
 function App() {
   const queryClient = new QueryClient();
@@ -41,8 +42,8 @@ function App() {
                 <Route path="/bookings" element={<Bookings />} />
                 <Route path="/favourites" element={<Favourites />} />
                 <Route path="/dashboard" element={<AdminLayout />}>
-                  {/* <Route index element={<div> hello </div>} /> */}
                   <Route index element={<DashboardMain />} />
+                  <Route path="update-property" element={<UpdateProperty />} />
                 </Route>
                 <Route path="/profile" element={<EditProfile />} />
               </Route>

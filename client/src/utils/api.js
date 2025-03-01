@@ -177,6 +177,25 @@ export const createResidency = async (data, token) => {
 	}
 };
 
+export const updateResidency = async (data, id, token) => {
+  console.log("Update Residency: ", data);
+  try {
+    const res = await api.post(
+      `/residency/updateResidency/${id}`,
+      {
+        data,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const removeResidency = async (id, token) => {
 	console.log("Remove Residency: ", token);
 	try {

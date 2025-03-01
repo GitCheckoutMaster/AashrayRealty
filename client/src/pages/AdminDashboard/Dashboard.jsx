@@ -58,7 +58,7 @@ const Dashboard = () => {
 					Remove Admin
 				</div>
 				<div className="sidebar-item">Customers</div>
-			</div>
+			</div> 
 			<AddPropertyModal opened={addProperty} setOpened={setAddProperty} />
 			{/* <div className="main">
 					{loading && (

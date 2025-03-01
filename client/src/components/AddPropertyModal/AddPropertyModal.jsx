@@ -5,24 +5,24 @@ import UploadImage from "../UploadImage/UploadImage";
 import BasicDetails from "../BasicDetails/BasicDetails";
 import Facilities from "../Facilities/Facilities";
 
-const AddPropertyModal = ({ opened, setOpened }) => {
+const AddPropertyModal = ({ opened, setOpened, forUpdate = undefined }) => {
   const [active, setActive] = useState(0);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [propertyDetails, setPropertyDetails] = useState({
-    title: "",
-    description: "",
-    price: 0,
-    country: "",
-    city: "",
-    address: "",
-    images: [],
+    title: forUpdate?.title || "",
+    description: forUpdate?.description || "",
+    price: forUpdate?.price || 0,
+    country: forUpdate?.country || "",
+    city: forUpdate?.city || "",
+    address: forUpdate?.address || "",
+    images: forUpdate?.images || [],
     facilities: {
-      bedrooms: 0,
-      parkings: 0,
-      bathrooms: 0,
+      bedrooms: forUpdate?.facilities?.bedrooms || 0,
+      parkings: forUpdate?.facilities?.parkings || 0,
+      bathrooms: forUpdate?.facilities?.bathrooms || 0,
     },
-    propertyType: "For Sale",
+    propertyType: forUpdate?.propertyType || "",
     userEmail: user?.email,
   });
 
@@ -79,6 +79,7 @@ const AddPropertyModal = ({ opened, setOpened }) => {
               setPropertyDetails={setPropertyDetails}
               setOpened={setOpened}
               setActiveStep={setActive}
+              forUpdate={forUpdate}
             />
           </Stepper.Step>
           <Stepper.Completed>

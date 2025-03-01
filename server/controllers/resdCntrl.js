@@ -41,6 +41,44 @@ export const createResidency = asyncHandler(async (req, res) => {
   }
 });
 
+export const updateResidency = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const {
+    title,
+    description,
+    price,
+    address,
+    country,
+    city,
+    facilities,
+    images,
+    propertyType,
+  } = req.body.data;
+
+  try {
+    const residency = await prisma.residency.update({
+      where: {
+        id,
+      },
+      data: {
+        title,
+        description,
+        price,
+        address,
+        country,
+        city,
+        facilities,
+        images,
+        propertyType,
+      },
+    });
+
+    res.send({ message: "Residency updated successfully", residency });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+})
+
 export const removeResidency = asyncHandler(async (req, res) => {
   const { id } = req.params;
 

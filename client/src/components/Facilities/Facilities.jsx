@@ -6,8 +6,7 @@ import UserDetailContext from "../../context/UserDetailContext";
 import useProperties from "../../hooks/useProperties.jsx";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
-import { createResidency } from "../../utils/api";
-
+import { createResidency, updateResidency } from "../../utils/api";
 
 const Facilities = ({
 	prevStep,
@@ -15,6 +14,7 @@ const Facilities = ({
 	setPropertyDetails,
 	setOpened,
 	setActiveStep,
+	forUpdate = undefined,
 }) => {
 	const form = useForm({
 		initialValues: {
@@ -34,11 +34,13 @@ const Facilities = ({
 
 	const handleSubmit = () => {
 		const { hasErrors } = form.validate();
-		if (!hasErrors) {
+		if (forUpdate) {
+      updateMutate();
+    } else if (!hasErrors) {
 			setPropertyDetails((prev) => ({
 				...prev,
 				facilities: { bedrooms, parkings, bathrooms },
-        propertyType,
+				propertyType,
 			}));
 			mutate();
 		}
@@ -51,14 +53,52 @@ const Facilities = ({
 	} = useContext(UserDetailContext);
 	const { refetch: refetchProperties } = useProperties();
 
+  const { mutate: updateMutate } = useMutation({
+    mutationFn: () => {
+      updateResidency(
+        {
+          ...propertyDetails,
+          facilities: { bedrooms, parkings, bathrooms },
+          propertyType,
+        },
+        forUpdate.id,
+        token
+      );
+    },
+    onError: ({ response }) =>
+      toast.error(response.data.message, { position: "bottom-right" }),
+    onSettled: () => {
+      toast.success("Updated Successfully", { position: "bottom-right" });
+      setPropertyDetails({
+        title: "",
+        description: "",
+        price: 0,
+        country: "",
+        city: "",
+        address: "",
+        images: null,
+        facilities: {
+          bedrooms: 0,
+          parkings: 0,
+          bathrooms: 0,
+        },
+        propertyType: "for sale",
+        userEmail: user?.email,
+      });
+      setOpened(false);
+      setActiveStep(0);
+      refetchProperties();
+    }
+  });
+
 	const { mutate, isLoading } = useMutation({
 		mutationFn: () => {
-      console.log("propertyDetails", propertyDetails);
+			console.log("propertyDetails", propertyDetails);
 			createResidency(
 				{
 					...propertyDetails,
 					facilities: { bedrooms, parkings, bathrooms },
-          propertyType,
+					propertyType,
 				},
 				token
 			);
@@ -80,7 +120,7 @@ const Facilities = ({
 					parkings: 0,
 					bathrooms: 0,
 				},
-        propertyType: "for sale",
+				propertyType: "for sale",
 				userEmail: user?.email,
 			});
 			setOpened(false);
@@ -114,14 +154,14 @@ const Facilities = ({
 					min={0}
 					{...form.getInputProps("bathrooms")}
 				/>
-        <Select
-          label="Property Type"
-          data={[
-            { label: "For Sale", value: "for sale" },
-            { label: "For Rent", value: "for rent" },
-          ]}
-          {...form.getInputProps("propertyType")}
-        />
+				<Select
+					label="Property Type"
+					data={[
+						{ label: "For Sale", value: "for sale" },
+						{ label: "For Rent", value: "for rent" },
+					]}
+					{...form.getInputProps("propertyType")}
+				/>
 				<Group position="center" mt="xl">
 					<Button variant="default" onClick={prevStep}>
 						Back
