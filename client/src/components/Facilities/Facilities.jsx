@@ -22,6 +22,7 @@ const Facilities = ({
 			parkings: propertyDetails.facilities.parkings,
 			bathrooms: propertyDetails.facilities.bathrooms,
 			propertyType: propertyDetails.propertyType,
+			type: propertyDetails.type,
 		},
 		validate: {
 			bedrooms: (value) => (value < 1 ? "Must have at least one room" : null),
@@ -30,7 +31,7 @@ const Facilities = ({
 		},
 	});
 
-	const { bedrooms, parkings, bathrooms, propertyType } = form.values;
+	const { bedrooms, parkings, bathrooms, propertyType, type } = form.values;
 
 	const handleSubmit = () => {
 		const { hasErrors } = form.validate();
@@ -41,6 +42,7 @@ const Facilities = ({
 				...prev,
 				facilities: { bedrooms, parkings, bathrooms },
 				propertyType,
+				type,
 			}));
 			mutate();
 		}
@@ -60,6 +62,7 @@ const Facilities = ({
           ...propertyDetails,
           facilities: { bedrooms, parkings, bathrooms },
           propertyType,
+					type,
         },
         forUpdate.id,
         token
@@ -84,6 +87,7 @@ const Facilities = ({
         },
         propertyType: "for sale",
         userEmail: user?.email,
+				type: "tenement",
       });
       setOpened(false);
       setActiveStep(0);
@@ -99,6 +103,7 @@ const Facilities = ({
 					...propertyDetails,
 					facilities: { bedrooms, parkings, bathrooms },
 					propertyType,
+					type,
 				},
 				token
 			);
@@ -122,6 +127,7 @@ const Facilities = ({
 				},
 				propertyType: "for sale",
 				userEmail: user?.email,
+				type: "tenement",
 			});
 			setOpened(false);
 			setActiveStep(0);
@@ -161,6 +167,19 @@ const Facilities = ({
 						{ label: "For Rent", value: "for rent" },
 					]}
 					{...form.getInputProps("propertyType")}
+				/>
+				<Select
+					label="Type"
+					data={[
+						{ label: "Apartment", value: "apartment" },
+						{ label: "Tenement", value: "tenement" },
+						{ label: "Duplex", value: "duplex" },
+						{ label: "Bungalow", value: "bungalow" },
+						{ label: "Flat", value: "flat" },
+						{ label: "Penthouse", value: "penthouse" },
+						{ label: "Farmhouse", value: "farmhouse" },
+					]}
+					{...form.getInputProps("type")}
 				/>
 				<Group position="center" mt="xl">
 					<Button variant="default" onClick={prevStep}>

@@ -14,6 +14,7 @@ export const createResidency = asyncHandler(async (req, res) => {
     images,
     userEmail,
     propertyType,
+    type,
   } = req.body.data;
 
   try {
@@ -29,6 +30,7 @@ export const createResidency = asyncHandler(async (req, res) => {
         images,
         owner: { connect: { email: userEmail } },
         propertyType,
+        type,
       },
     });
 
@@ -53,6 +55,7 @@ export const updateResidency = asyncHandler(async (req, res) => {
     facilities,
     images,
     propertyType,
+    type,
   } = req.body.data;
 
   try {
@@ -70,6 +73,7 @@ export const updateResidency = asyncHandler(async (req, res) => {
         facilities,
         images,
         propertyType,
+        type,
       },
     });
 

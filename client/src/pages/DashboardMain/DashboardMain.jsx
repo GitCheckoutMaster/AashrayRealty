@@ -10,10 +10,15 @@ import "ag-charts-enterprise";
 
 const DashboardMain = () => {
 	const [properties, setProperties] = useState([]);
+	const [propertyLengths, setPropertyLengths] = useState([0, 0, 0, 0, 0]);
 
 	const res = useQuery("properties", getAllProperties, {
 		onSuccess: (data) => {
 			setProperties(data);
+			let forSale = data.filter((property) => property.propertyType === "for sale").length;
+			let forRent = data.filter((property) => property.propertyType === "for rent").length;
+			let total = data.length;
+			setPropertyLengths([forSale, forRent, total, forSale / total * 100, forRent / total * 100]);
 		},
 	});
 
@@ -38,7 +43,7 @@ const DashboardMain = () => {
 			<div className="total-properties-bottom-charts">
 				<div className="total-properties-forSell">
 					<div>
-						2000
+						{properties?.filter((property) => property.propertyType === "for sale")?.length}
 						<br />
 						<span style={{ fontWeight: 300, fontSize: "1.2rem" }}>
 							Properties for sale
@@ -48,8 +53,8 @@ const DashboardMain = () => {
 						<AgCharts
 							options={{
 								data: [
-                  { name: "for sale", amount: 60 },
-                  { name: "sold", amount: 40 },
+                  { name: "for sale", amount: propertyLengths[0] },
+                  { name: "", amount: propertyLengths[2] - propertyLengths[0] },
                 ],
 								animation: {
 									enabled: true,
@@ -62,14 +67,14 @@ const DashboardMain = () => {
 									{
 										cornerRadius: 2,
 										type: "donut",
-										calloutLabelKey: "name",
 										angleKey: "amount",
 										innerRadiusRatio: 0.6,
 										fills: ["#3333ff", "#ede8e8"],
 										strokes: ["#ffffff", "#ffffff"],
+										showInLegend: false,
 										innerLabels: [
 											{
-												text: "60%",
+												text: propertyLengths[3].toFixed(0) + "%",
 												fontSize: 15,
 											},
 										],
@@ -81,7 +86,7 @@ const DashboardMain = () => {
 				</div>
 				<div className="total-properties-forRent">
 					<div>
-						2000
+						{propertyLengths[1]}
 						<br />
 						<span style={{ fontWeight: 300, fontSize: "1.2rem" }}>
 							Properties for rent
@@ -91,8 +96,8 @@ const DashboardMain = () => {
 						<AgCharts
 							options={{
 								data: [
-									{ name: "For rent", amount: 50 },
-									{ name: "Rented", amount: 30 },
+									{ name: "For rent", amount: propertyLengths[1] },
+									{ name: "", amount: propertyLengths[2] - propertyLengths[1] },
 								],
                 animation: {
                   enabled: true,
@@ -113,7 +118,7 @@ const DashboardMain = () => {
 										showInLegend: false,
 										innerLabels: [
 											{
-												text: "63%",
+												text: propertyLengths[4].toFixed(0) + "%",
 												fontSize: 15,
 											},
 										],

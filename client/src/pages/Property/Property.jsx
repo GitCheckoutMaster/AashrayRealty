@@ -140,7 +140,7 @@ const Property = () => {
             <div className="flexStart head">
               <span className="primaryText prop-heading">{data?.title} <div className="prop-type">{data?.propertyType}</div></span>
               <span className="orangeText" style={{ fontSize: "1.5rem" }}>
-                $ {data?.price}
+                ₹ {data?.price}
               </span>
             </div>
 

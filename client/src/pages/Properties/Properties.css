@@ -17,3 +17,11 @@
 .properties-container .search-bar input{
     width: 70%;
 }
+
+.searchbar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    flex-direction: column;
+}

@@ -2,7 +2,7 @@ import React from "react";
 import { HiLocationMarker } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({ filter, setFilter }) => {
+const SearchBar = ({ filter, setFilter, dropdown = false, setShowDropdown = undefined }) => {
   const navigate = useNavigate();
 
   return (
@@ -13,6 +13,8 @@ const SearchBar = ({ filter, setFilter }) => {
         type="text"
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
+        onFocus={() => dropdown && setShowDropdown(true)}
+        // onBlur={() => dropdown && setShowDropdown(false)}
       />
       <button className="button" onClick={() => navigate("/properties")}>Search</button>
     </div>

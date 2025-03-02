@@ -23,6 +23,7 @@ const AddPropertyModal = ({ opened, setOpened, forUpdate = undefined }) => {
       bathrooms: forUpdate?.facilities?.bathrooms || 0,
     },
     propertyType: forUpdate?.propertyType || "",
+    type: forUpdate?.type || "",
     userEmail: user?.email,
   });
 

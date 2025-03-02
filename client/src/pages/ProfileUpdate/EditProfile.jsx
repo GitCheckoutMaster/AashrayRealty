@@ -5,12 +5,10 @@ import { useForm } from "react-hook-form";
 import { editProfile } from "../../utils/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const EditProfile = () => {
 	const user = JSON.parse(localStorage.getItem("user"));
 	const altAvatar = useAuth0().user?.picture;
-  const userSub = useAuth0().user?.sub;
 	const {
 		register,
 		handleSubmit,

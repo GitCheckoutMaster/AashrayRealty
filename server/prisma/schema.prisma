@@ -42,7 +42,8 @@ model Residency {
     updatedAt    DateTime  @updatedAt
     Queries      Queries[]
     propertyType String
-    bookedBy     String?    
+    bookedBy     String?
+    type         String
 
     @@unique(fields: [address, userEmail])
 }

@@ -48,7 +48,7 @@ const Dashboard = () => {
 				>
 					Update Property
 				</div>
-				<div className="sidebar-item" id="removable1">
+				<div className="sidebar-item" id="removable1" onClick={() => navigate("/dashboard/add-admin")}>
 					Add Admin
 				</div>
 				<div className="sidebar-item" id="removable2">
@@ -93,28 +93,6 @@ const Properties = ({ properties, deleteProperty }) => {
 						))}
 					</Swiper>
 				)}
-			</div>
-		)
-	);
-};
-
-const AddAdmin = ({ addAdmin }) => {
-	const [email, setEmail] = useState("");
-
-	const handleChange = (e) => {
-		setEmail(e.target.value);
-	};
-
-	const handleClick = async () => {
-		const res = addAdminAPI(email, localStorage.getItem("access_token"));
-		console.log(res);
-	};
-
-	return (
-		addAdmin && (
-			<div className="addAdmin">
-				<input type="text" placeholder="Enter email" onChange={handleChange} />
-				<button onClick={handleClick}>Add Admin</button>
 			</div>
 		)
 	);

@@ -17,6 +17,7 @@ import AdminLayout from "./components/AdminPageLayout/AdminLayout";
 import DashboardMain from "./pages/DashboardMain/DashboardMain";
 import UpdateProperty from "./pages/UpdateProperty/UpdateProperty";
 import CustomerList from "./pages/CustomerList/CustomerList";
+import AddAdmin from "./pages/AddRemoveAdmin/AddAdmin";
 
 function App() {
   const queryClient = new QueryClient();
@@ -45,6 +46,7 @@ function App() {
                   <Route index element={<DashboardMain />} />
                   <Route path="update-property" element={<UpdateProperty />} />
                   <Route path="customers" element={<CustomerList />} />
+                  <Route path="/dashboard/add-admin" element={<AddAdmin />} />
                 </Route>
                 <Route path="/profile" element={<EditProfile />} />
               </Route>
