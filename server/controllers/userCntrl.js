@@ -213,7 +213,14 @@ export const addAdmin = asyncHandler(async (req, res) => {
 // function to remove an admin
 export const removeAdmin = asyncHandler(async (req, res) => {
 	const { email } = req.body;
-	if (!ADMIN.includes(email)) {
+	// if (!ADMIN.includes(email)) {
+	// 	return res.status(400).send({ message: "Not an admin" });
+	// }
+	const isAdmin = await prisma.user.findUnique({
+		where: { email: email },
+		select: { isAdmin: true, canAddAdmin: true },
+	});
+	if (!isAdmin && isAdmin.canAddAdmin) {
 		return res.status(400).send({ message: "Not an admin" });
 	}
 	try {

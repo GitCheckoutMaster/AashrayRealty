@@ -1,0 +1,52 @@
+.booking-list {
+  width: 100%;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+.booking-list-content {
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+thead th {
+  position: relative;
+}
+
+thead th::after {
+  content: " ▼";
+  font-size: 12px;
+  color: #777;
+  margin-left: 5px;
+}
+
+td {
+  white-space: nowrap;
+}

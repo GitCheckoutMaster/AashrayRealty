@@ -45,6 +45,7 @@ const EMICalc = ({ opened, setOpened }) => {
 						type="number"
 						placeholder="Enter loan amount"
 						onChange={(e) => setLoanAmount(e.target.value)}
+						min={0}
 					/>
 				</div>
 				<div className="emi-calc__input">
@@ -53,6 +54,7 @@ const EMICalc = ({ opened, setOpened }) => {
 						type="number"
 						placeholder="Enter interest rate"
 						onChange={(e) => setInterestRate(e.target.value)}
+						min={0}
 					/>
 				</div>
 				<div className="emi-calc__input">
@@ -61,6 +63,7 @@ const EMICalc = ({ opened, setOpened }) => {
 						type="number"
 						placeholder="Enter loan tenure"
 						onChange={(e) => setLoanTenure(e.target.value)}
+						min={0}
 					/>
 				</div>
 				<div className="emi-calc__output">

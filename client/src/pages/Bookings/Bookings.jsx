@@ -4,14 +4,16 @@ import useProperties from "../../hooks/useProperties";
 import { PuffLoader } from "react-spinners";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
 import "../Properties/Properties.css";
-import UserDetailContext from "../../context/UserDetailContext";
+// import UserDetailContext from "../../context/UserDetailContext";
+import useBookings from "../../hooks/useBookings";
 
 const Bookings = () => {
   const { data, isError, isLoading } = useProperties();
   const [filter, setFilter] = useState("");
-  const {
-    userDetails: { bookings },
-  } = useContext(UserDetailContext);
+  // const {
+  //   userDetails: { bookings },
+  // } = useContext(UserDetailContext);
+  const { data: bookings, isLoading: bookingsLoading } = useBookings();
 
   if (isError) {
     return (
@@ -21,7 +23,7 @@ const Bookings = () => {
     );
   }
 
-  if (isLoading) {
+  if (isLoading && bookingsLoading) {
     return (
       <div className="wrapper flexCenter" style={{ height: "60vh" }}>
         <PuffLoader
@@ -44,8 +46,8 @@ const Bookings = () => {
             // data.map((card, i)=> (<PropertyCard card={card} key={i}/>))
 
             data
-              .filter((property) =>
-                bookings.map((booking) => booking.id).includes(property.id)
+              ?.filter((property) =>
+                bookings?.map((booking) => booking.id).includes(property.id)
               )
 
               .filter(

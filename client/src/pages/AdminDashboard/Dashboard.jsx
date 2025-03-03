@@ -51,7 +51,7 @@ const Dashboard = () => {
 				<div className="sidebar-item" id="removable1" onClick={() => navigate("/dashboard/add-admin")}>
 					Add Admin
 				</div>
-				<div className="sidebar-item" id="removable2">
+				<div className="sidebar-item" id="removable2" onClick={() => navigate("/dashboard/remove-admin")}>
 					Remove Admin
 				</div>
 				<div className="sidebar-item" onClick={() => navigate("/dashboard/customers")}>
@@ -59,6 +59,9 @@ const Dashboard = () => {
 				</div>
 				<div className="sidebar-item" onClick={() => navigate("/dashboard/admins")}>
 					Admins
+				</div>
+				<div className="sidebar-item" onClick={() => navigate("/dashboard/order-list")}>
+					Orders
 				</div>
 			</div>
 			<AddPropertyModal opened={addProperty} setOpened={setAddProperty} />
@@ -96,28 +99,6 @@ const Properties = ({ properties, deleteProperty }) => {
 						))}
 					</Swiper>
 				)}
-			</div>
-		)
-	);
-};
-
-const RemoveAdmin = ({ removeAdmin }) => {
-	const [email, setEmail] = useState("");
-
-	const handleChange = (e) => {
-		setEmail(e.target.value);
-	};
-
-	const handleClick = async () => {
-		const res = removeAdminAPI(email, localStorage.getItem("access_token"));
-		console.log(res);
-	};
-
-	return (
-		removeAdmin && (
-			<div className="removeAdmin">
-				<input type="text" placeholder="Enter email" onChange={handleChange} />
-				<button onClick={handleClick}>Remove Admin</button>
 			</div>
 		)
 	);

@@ -13,7 +13,7 @@ const useBookings = () => {
     queryKey: "allBookings",
     queryFn: () => getAllBookings(user?.email, userDetails?.token),
     onSuccess: (data) => {
-      setUserDetails((prev) => ({ ...prev, ...data }))
+      setUserDetails((prev) => ({ ...prev, bookings: data }))
     }, 
     enabled: user !== undefined,
     staleTime: 30000,

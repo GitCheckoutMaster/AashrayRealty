@@ -18,6 +18,8 @@ import DashboardMain from "./pages/DashboardMain/DashboardMain";
 import UpdateProperty from "./pages/UpdateProperty/UpdateProperty";
 import CustomerList from "./pages/CustomerList/CustomerList";
 import AddAdmin from "./pages/AddRemoveAdmin/AddAdmin";
+import RemoveAdmin from "./pages/AddRemoveAdmin/RemoveAdmin";
+import BookingList from "./pages/BookingList/BookingList";
 
 function App() {
   const queryClient = new QueryClient();
@@ -48,6 +50,8 @@ function App() {
                   <Route path="/dashboard/customers" element={<CustomerList />} />
                   <Route path="/dashboard/admins" element={<CustomerList admin />} />
                   <Route path="/dashboard/add-admin" element={<AddAdmin />} />
+                  <Route path="/dashboard/remove-admin" element={<RemoveAdmin />} />
+                  <Route path="/dashboard/order-list" element={<BookingList />} />
                 </Route>
                 <Route path="/profile" element={<EditProfile />} />
               </Route>

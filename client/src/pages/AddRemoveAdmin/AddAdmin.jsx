@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { addAdmin } from "../../utils/api";
+import "./AddAdminStyle.css";
+import { toast } from "react-toastify";
 
 const AddAdmin = () => {
   const [email, setEmail] = useState("");
@@ -9,14 +11,19 @@ const AddAdmin = () => {
   };
 
   const handleClick = async () => {
-    const res = addAdmin(email, localStorage.getItem("access_token"));
+    const res = await addAdmin(email, localStorage.getItem("access_token"));
     console.log(res);
+    if (res.status === 200) {
+      toast.success("Admin added successfully", {
+        position: "bottom-right"
+      });
+    }
   };
 
   return (
       <div className="addAdmin">
         <input type="text" placeholder="Enter email" onChange={handleChange} />
-        <button onClick={handleClick}>Add Admin</button>
+        <button className="button" onClick={handleClick}>Add Admin</button>
       </div>
     )
 };

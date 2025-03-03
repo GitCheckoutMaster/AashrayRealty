@@ -28,6 +28,9 @@ const Facilities = ({
 			bedrooms: (value) => (value < 1 ? "Must have at least one room" : null),
 			bathrooms: (value) =>
 				value < 1 ? "Must have at least one bathroom" : null,
+			propertyType: (value) =>
+				!value ? "Please select a property type" : null,
+			type: (value) => (!value ? "Please select a type" : null),
 		},
 	});
 
