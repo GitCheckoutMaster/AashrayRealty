@@ -44,8 +44,9 @@ function App() {
                 <Route path="/favourites" element={<Favourites />} />
                 <Route path="/dashboard" element={<AdminLayout />}>
                   <Route index element={<DashboardMain />} />
-                  <Route path="update-property" element={<UpdateProperty />} />
-                  <Route path="customers" element={<CustomerList />} />
+                  <Route path="/dashboard/update-property" element={<UpdateProperty />} />
+                  <Route path="/dashboard/customers" element={<CustomerList />} />
+                  <Route path="/dashboard/admins" element={<CustomerList admin />} />
                   <Route path="/dashboard/add-admin" element={<AddAdmin />} />
                 </Route>
                 <Route path="/profile" element={<EditProfile />} />

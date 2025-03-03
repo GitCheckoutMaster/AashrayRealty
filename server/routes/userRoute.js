@@ -10,6 +10,7 @@ import {
   removeAdmin,
   getAllUsers,
   editProfile,
+  getEveryBooking,
 } from "../controllers/userCntrl.js";
 import jwtCheck from "../config/auth0Config.js";
 import upload from "../middleware/multer.middleware.js";
@@ -27,4 +28,5 @@ router.post("/addAdmin", jwtCheck, addAdmin);
 router.post("/removeAdmin", jwtCheck, removeAdmin);
 router.get("/getCustomers", jwtCheck, getAllUsers);
 router.post("/editProfile", jwtCheck, upload.single("image"), editProfile);
+router.get("/getEveryBooking", jwtCheck, getEveryBooking);
 export { router as userRoute };

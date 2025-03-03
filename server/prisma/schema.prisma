@@ -8,25 +8,26 @@ datasource db {
 }
 
 model User {
-    id                String      @id @default(auto()) @map("_id") @db.ObjectId
-    name              String?
-    email             String      @unique
-    image             String?
-    phoneNumber       String?
-    address           String?
-    isAdmin           Boolean     @default(false)
-    canAddAdmin       Boolean     @default(false)
-    bookedVisits      Json[]
-    favResidenciesID  String[]    @db.ObjectId
-    ownedResidencies  Residency[] @relation("Owner")
-    queries           Queries[]
-    reviews           Review[]
-    createdAt         DateTime    @default(now())
-    updatedAt         DateTime    @updatedAt
+    id               String      @id @default(auto()) @map("_id") @db.ObjectId
+    name             String?
+    email            String      @unique
+    image            String?
+    phoneNumber      String?
+    address          String?
+    isAdmin          Boolean     @default(false)
+    canAddAdmin      Boolean     @default(false)
+    // bookedVisits     Json[]
+    favResidenciesID String[]    @db.ObjectId
+    ownedResidencies Residency[] @relation("Owner")
+    queries          Queries[]
+    reviews          Review[]
+    createdAt        DateTime    @default(now())
+    updatedAt        DateTime    @updatedAt
+    Bookings         Bookings[]
 }
 
 model Residency {
-    id           String    @id @default(auto()) @map("_id") @db.ObjectId
+    id           String     @id @default(auto()) @map("_id") @db.ObjectId
     title        String
     description  String
     price        Int
@@ -36,14 +37,15 @@ model Residency {
     images       String[]
     facilities   Json
     userEmail    String
-    owner        User      @relation("Owner", fields: [userEmail], references: [email])
+    owner        User       @relation("Owner", fields: [userEmail], references: [email])
     reviews      Review[]
-    createdAt    DateTime  @default(now())
-    updatedAt    DateTime  @updatedAt
+    createdAt    DateTime   @default(now())
+    updatedAt    DateTime   @updatedAt
     Queries      Queries[]
     propertyType String
-    bookedBy     String?
+    // bookedBy     String?
     type         String
+    Bookings     Bookings?
 
     @@unique(fields: [address, userEmail])
 }
@@ -71,6 +73,17 @@ model Queries {
     residencyId String    @db.ObjectId
     residency   Residency @relation(fields: [residencyId], references: [id])
     user        User      @relation(fields: [userEmail], references: [email])
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+}
+
+model Bookings {
+    id          String    @id @default(auto()) @map("_id") @db.ObjectId
+    residencyId String    @db.ObjectId @unique
+    residency   Residency @relation(fields: [residencyId], references: [id])
+    userEmail   String
+    user        User      @relation(fields: [userEmail], references: [email])
+    date        DateTime
     createdAt   DateTime  @default(now())
     updatedAt   DateTime  @updatedAt
 }

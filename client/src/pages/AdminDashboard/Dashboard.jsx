@@ -57,6 +57,9 @@ const Dashboard = () => {
 				<div className="sidebar-item" onClick={() => navigate("/dashboard/customers")}>
 					Customers
 				</div>
+				<div className="sidebar-item" onClick={() => navigate("/dashboard/admins")}>
+					Admins
+				</div>
 			</div>
 			<AddPropertyModal opened={addProperty} setOpened={setAddProperty} />
 		</div>

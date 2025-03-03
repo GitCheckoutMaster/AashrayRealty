@@ -3,7 +3,7 @@ import "./CustomerCardStyle.css";
 const CustomerCard = ({ customer }) => {
 	const date = new Date(customer.createdAt);
 	return (
-		<div className={"customer-card" + (customer.isAdmin ? " admin" : "")}>
+		<div className={"customer-card"}>
 			<div className="customer-card-name">
 				<img src={customer.image} alt={customer.name} />
         <div className="customer-card-name-details">

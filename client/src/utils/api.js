@@ -151,12 +151,27 @@ export const getAllBookings = async (email, token) => {
 				},
 			}
 		);
-		return res.data["bookedVisits"];
+		console.log("All Bookings: ", res.data);
+		// return res.data["bookedVisits"];
+		return res.data;
 	} catch (error) {
 		toast.error("Something went wrong while fetching bookings");
 		throw error;
 	}
 };
+
+export const getEveryBooking = async (token) => {
+	try {
+		const res = await api.get(`/user/getEveryBooking`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			}
+		});
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
+}
 
 export const createResidency = async (data, token) => {
 	console.log("Create Residency: ", data);

@@ -27,10 +27,6 @@ const Properties = () => {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	useEffect(() => {
-		console.log(minBudget, maxBudget, propertyType, type);
-	}, [minBudget, maxBudget, propertyType, type]);
-
 	if (isError) {
 		return (
 			<div className="wrapper">
@@ -70,10 +66,10 @@ const Properties = () => {
 							setMaxBudget={setMaxBudget}
 							setPropertyType={setPropertyType}
 							setType={setType}
-              minBudget={minBudget}
-              maxBudget={maxBudget}
-              propertyType={propertyType}
-              type={type}
+							minBudget={minBudget}
+							maxBudget={maxBudget}
+							propertyType={propertyType}
+							type={type}
 						/>
 					)}
 				</div>
@@ -86,6 +82,8 @@ const Properties = () => {
 								property.city.toLowerCase().includes(filter.toLowerCase()) ||
 								property.country.toLowerCase().includes(filter.toLowerCase()) ||
 								property.address.toLowerCase().includes(filter.toLowerCase());
+							
+							const available = property.Booking ? true: false;
 
 							const matchesBudget =
 								(minBudget === 0 || property.price >= minBudget) &&
@@ -100,7 +98,8 @@ const Properties = () => {
 								matchesSearch &&
 								matchesBudget &&
 								matchesPropertyType &&
-								matchesType
+								matchesType &&
+								!available
 							);
 						})
 						.map((card, i) => (

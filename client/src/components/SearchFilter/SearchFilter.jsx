@@ -31,7 +31,9 @@ const SearchFilter = ({
 	};
 
 	return (
-		<div className="search-filter" onMouseDown={(e) => e.stopPropagation()}>
+		<div className="search-filter" onMouseDown={(e) => {
+			e.stopPropagation();
+		}}>
 			<form
 				onSubmit={handleSubmit(handleFilter)}
 				className="search-filter-form"
