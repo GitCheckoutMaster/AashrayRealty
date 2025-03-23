@@ -1,11 +1,12 @@
 .booking-list {
   width: 100%;
   margin: 20px auto;
+  margin-top: 3rem;
   font-family: Arial, sans-serif;
 }
 
 .booking-list-content {
-  margin-top: 20px;
+  margin-top: 2rem;
   margin-right: 20px;
   margin-left: 20px;
 }

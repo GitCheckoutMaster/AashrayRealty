@@ -36,8 +36,8 @@ const Header = () => {
 					>
 						<NavLink to="/">Home</NavLink>
 						<NavLink to="/properties">Properties</NavLink>
-
-						<a href="mailto:zainkeepscode@gmail.com">Contact</a>
+						<NavLink to="/contactUs">Contact Us</NavLink>
+						{/* <a href="mailto:zainkeepscode@gmail.com">Contact Us</a> */}
 
 						{/* ADMIN DASHBOARD */}
 						{isAuthenticated && isAdmin && (

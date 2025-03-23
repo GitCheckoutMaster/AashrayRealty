@@ -36,8 +36,8 @@ const CustomerList = ({ admin }) => {
 					?.filter((customer) => {
 						if (admin) return customer.isAdmin;
 						// else return (!customer.isAdmin && data.userEmail != customer.email);
-						const hasBooking = data.some(booking => booking.userEmail === customer.email);
-						return !customer.isAdmin && hasBooking;
+						// const hasBooking = data.some(booking => booking.userEmail === customer.email);
+						return !customer.isAdmin;
 					})
 					.map((customer) => (
 						<CustomerCard key={customer._id} customer={customer} />

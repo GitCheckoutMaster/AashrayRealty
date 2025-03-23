@@ -20,6 +20,7 @@ import CustomerList from "./pages/CustomerList/CustomerList";
 import AddAdmin from "./pages/AddRemoveAdmin/AddAdmin";
 import RemoveAdmin from "./pages/AddRemoveAdmin/RemoveAdmin";
 import BookingList from "./pages/BookingList/BookingList";
+import ContactUs from "./pages/ContactUs/ContactUs";
 
 function App() {
   const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ function App() {
                   <Route index element={<Properties />} />
                   <Route path=":propertyId" element={<Property />} />
                 </Route>
+                <Route path="/contactUs" element={<ContactUs />} />
                 <Route path="/bookings" element={<Bookings />} />
                 <Route path="/favourites" element={<Favourites />} />
                 <Route path="/dashboard" element={<AdminLayout />}>
