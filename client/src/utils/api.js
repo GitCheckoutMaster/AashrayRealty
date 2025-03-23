@@ -377,6 +377,7 @@ export const editProfile = async (data, token) => {
 		const res = await api.post(`/user/editProfile`, data, {
 			headers: {
 				Authorization: `Bearer ${token}`,
+				"Content-Type": "application/json",
 			},
 		});
 
@@ -385,3 +386,17 @@ export const editProfile = async (data, token) => {
 		throw error;
 	}
 };
+
+export const createPayment = async (data, token) => {
+	try {
+		const res = await api.post(`/payment/create`, data, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			}
+		});
+
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
+}
