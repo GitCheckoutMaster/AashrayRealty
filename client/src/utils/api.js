@@ -165,13 +165,13 @@ export const getEveryBooking = async (token) => {
 		const res = await api.get(`/user/getEveryBooking`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
-			}
+			},
 		});
 		return res.data;
 	} catch (error) {
 		throw error;
 	}
-}
+};
 
 export const createResidency = async (data, token) => {
 	console.log("Create Residency: ", data);
@@ -193,23 +193,23 @@ export const createResidency = async (data, token) => {
 };
 
 export const updateResidency = async (data, id, token) => {
-  console.log("Update Residency: ", data);
-  try {
-    const res = await api.post(
-      `/residency/updateResidency/${id}`,
-      {
-        data,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-  } catch (error) {
-    throw error;
-  }
-}
+	console.log("Update Residency: ", data);
+	try {
+		const res = await api.post(
+			`/residency/updateResidency/${id}`,
+			{
+				data,
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+	} catch (error) {
+		throw error;
+	}
+};
 
 export const removeResidency = async (id, token) => {
 	console.log("Remove Residency: ", token);
@@ -392,11 +392,11 @@ export const createPayment = async (data, token) => {
 		const res = await api.post(`/payment/create`, data, {
 			headers: {
 				Authorization: `Bearer ${token}`,
-			}
+			},
 		});
 
 		return res.data;
 	} catch (error) {
 		throw error;
 	}
-}
+};

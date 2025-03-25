@@ -21,7 +21,8 @@ import ReviewCard from "../../components/ReviewCard/ReviewCard.jsx";
 import AskQuestion from "../../components/AskQuestion/AskQuestion.jsx";
 import QuestionCard from "../../components/QuestionCard/QuestionCard.jsx";
 import ImageSlider from "../../components/ImageSlider/ImageSlider.jsx";
-import logo from "../../../public/logo.png";
+// import logo from "../../../public/logo.png";
+import Swal from "sweetalert2";
 
 
 const Property = () => {
@@ -56,7 +57,20 @@ const Property = () => {
   } = useContext(UserDetailContext);
 
   const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
-    mutationFn: () => removeBooking(id, user?.email, token),
+    mutationFn: () => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You want to cancel the booking",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          removeBooking(id, user?.email, token);
+        }
+      });
+    },
     onSuccess: () => {
       setUserDetails((prev) => ({
         ...prev,
@@ -204,7 +218,7 @@ const Property = () => {
               <button
                 className="button"
                 onClick={async () => {
-                  const amount = 5 * 100;
+                  const amount = 49000 * 100;
                   const currency = "INR";
 
                   if (validateLogin()) {
@@ -218,15 +232,16 @@ const Property = () => {
                     );
 
                     var options = {
-                      key: "rzp_test_ra9cIN8LjOHk5O", // Enter the Key ID generated from the Dashboard
-                      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                      key: "rzp_test_ra9cIN8LjOHk5O",
+                      amount, 
                       currency,
-                      name: "Aashray Realty", //your business name
+                      name: "Aashray Realty", 
                       description: "Test Transaction",
-                      image: { logo },
-                      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                      image: "../../../public/logo.png",
+                      order_id: order.id, 
                       handler: async function (response) {
                         console.log(response);
+
                         setModalOpened(true);
                         // const body = {
                         //   ...response,

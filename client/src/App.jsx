@@ -21,6 +21,7 @@ import AddAdmin from "./pages/AddRemoveAdmin/AddAdmin";
 import RemoveAdmin from "./pages/AddRemoveAdmin/RemoveAdmin";
 import BookingList from "./pages/BookingList/BookingList";
 import ContactUs from "./pages/ContactUs/ContactUs";
+import Invoice from "./components/Invoice/Invoice";
 
 function App() {
   const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/properties">
                   <Route index element={<Properties />} />
                   <Route path=":propertyId" element={<Property />} />
+                  <Route path=":propertyId/invoice" element={<Invoice />} />
                 </Route>
                 <Route path="/contactUs" element={<ContactUs />} />
                 <Route path="/bookings" element={<Bookings />} />

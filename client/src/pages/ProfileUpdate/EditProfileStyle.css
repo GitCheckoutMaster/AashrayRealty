@@ -56,6 +56,13 @@
     text-align: center;
 }
 
+.edit-profile form {
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 input {
     width: 20rem;
     padding: 10px;
@@ -71,6 +78,7 @@ input:focus {
 
 textarea {
     width: 20rem;
+    margin-left: 30px;
     padding: 10px;
     border: 1.5px solid #848383;
     border-radius: 5px;

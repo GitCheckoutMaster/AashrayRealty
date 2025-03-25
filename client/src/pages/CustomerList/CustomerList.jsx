@@ -30,7 +30,7 @@ const CustomerList = ({ admin }) => {
 
 	return (
 		<div className="customer-list-wrapper">
-			<h1>Customer List</h1>
+			<h1>{admin ? "Admin list" : "Customer List"}</h1>
 			<div className="customer-list">
 				{customers
 					?.filter((customer) => {
