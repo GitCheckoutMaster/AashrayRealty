@@ -11,10 +11,10 @@ import {
   getAllUsers,
   editProfile,
   getEveryBooking,
+  getAllCancellation,
 } from "../controllers/userCntrl.js";
 import jwtCheck from "../config/auth0Config.js";
 import upload from "../middleware/multer.middleware.js";
-
 
 const router = express.Router();
 
@@ -29,4 +29,5 @@ router.post("/removeAdmin", jwtCheck, removeAdmin);
 router.get("/getCustomers", jwtCheck, getAllUsers);
 router.post("/editProfile", jwtCheck, upload.single("image"), editProfile);
 router.get("/getEveryBooking", jwtCheck, getEveryBooking);
+router.get("/getEveryCancellation", jwtCheck, getAllCancellation);
 export { router as userRoute };

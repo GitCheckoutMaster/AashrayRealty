@@ -1,0 +1,67 @@
+.booking-list {
+  width: 100%;
+  margin: 20px auto;
+  margin-top: 3rem;
+  font-family: Arial, sans-serif;
+}
+
+.booking-list-content {
+  margin-top: 2rem;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.booking-list-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-items: center; */
+  padding-left: 2rem;
+  padding-right: 2rem;
+  /* background-color: red; */
+}
+
+.booking-list-header > h2 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  text-align: center;
+  flex: 1;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+thead th {
+  position: relative;
+}
+
+thead th::after {
+  content: " ▼";
+  font-size: 12px;
+  color: #777;
+  margin-left: 5px;
+}
+
+td {
+  white-space: nowrap;
+}

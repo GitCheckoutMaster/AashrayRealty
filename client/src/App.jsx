@@ -24,6 +24,8 @@ import ContactUs from "./pages/ContactUs/ContactUs";
 import Invoice from "./components/Invoice/Invoice";
 import OrderReport from "./components/OrderListReport/OrderReport";
 import CustomerReport from "./components/CustomerReport/CustomerReport";
+import CancellationList from "./pages/CancellationList/CancellationList";
+import CancellationReport from "./components/CancellationListReport/CancellationReport";
 
 function App() {
   const queryClient = new QueryClient();
@@ -58,8 +60,10 @@ function App() {
                   <Route path="/dashboard/add-admin" element={<AddAdmin />} />
                   <Route path="/dashboard/remove-admin" element={<RemoveAdmin />} />
                   <Route path="/dashboard/order-list" element={<BookingList />} />
+                  <Route path="/dashboard/cancellation-list" element={<CancellationList />} />
                   <Route path="/dashboard/order-report" element={<OrderReport />} />
                   <Route path="/dashboard/customer-report" element={<CustomerReport />} />
+                  <Route path="/dashboard/cancellation-report" element={<CancellationReport />} />
                 </Route>
                 <Route path="/profile" element={<EditProfile />} />
               </Route>

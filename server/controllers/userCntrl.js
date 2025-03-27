@@ -103,6 +103,15 @@ export const getAllBookings = asyncHandler(async (req, res) => {
 	}
 });
 
+export const getAllCancellation = asyncHandler(async (req, res) => {
+	try {
+		const cancellation = await prisma.cancellation.findMany();
+		return res.status(200).json(cancellation);
+	} catch (error) {
+		throw error;
+	}
+});
+
 // function to cancel the booking
 export const cancelBooking = asyncHandler(async (req, res) => {
 	const { email } = req.body;
@@ -121,6 +130,14 @@ export const cancelBooking = asyncHandler(async (req, res) => {
 			return res.status(404).json({ message: "Booking not found" });
 		}
 
+		await prisma.cancellation.create({
+			data: {
+				bookingId: booking.id,
+				residencyId: id,
+				userEmail: email,
+			}
+		});
+
 		// Delete the booking
 		await prisma.bookings.delete({
 			where: { id: booking.id },
@@ -138,7 +155,7 @@ export const getEveryBooking = asyncHandler(async (req, res) => {
 	return res.status(200).json(bookings);
 });
 
-// function to add a resd in favourite list of a user
+// function to add a resd in favorite list of a user
 export const toFav = asyncHandler(async (req, res) => {
 	const { email } = req.body;
 	const { rid } = req.params;

@@ -173,6 +173,20 @@ export const getEveryBooking = async (token) => {
 	}
 };
 
+export const getEveryCancellation = async (token) => {
+	try {
+		const res = await api.get(`/user/getEveryCancellation`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			}
+		});
+
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
+}
+
 export const createResidency = async (data, token) => {
 	console.log("Create Residency: ", data);
 	try {
