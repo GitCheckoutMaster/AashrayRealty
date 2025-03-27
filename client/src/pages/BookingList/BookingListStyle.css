@@ -11,9 +11,23 @@
   margin-left: 20px;
 }
 
-h2 {
+.booking-list-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-items: center; */
+  padding-left: 2rem;
+  padding-right: 2rem;
+  /* background-color: red; */
+}
+
+.booking-list-header > h2 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
   text-align: center;
-  margin-bottom: 20px;
+  flex: 1;
 }
 
 table {

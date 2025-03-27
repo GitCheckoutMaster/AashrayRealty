@@ -22,6 +22,8 @@ import RemoveAdmin from "./pages/AddRemoveAdmin/RemoveAdmin";
 import BookingList from "./pages/BookingList/BookingList";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import Invoice from "./components/Invoice/Invoice";
+import OrderReport from "./components/OrderListReport/OrderReport";
+import CustomerReport from "./components/CustomerReport/CustomerReport";
 
 function App() {
   const queryClient = new QueryClient();
@@ -56,6 +58,8 @@ function App() {
                   <Route path="/dashboard/add-admin" element={<AddAdmin />} />
                   <Route path="/dashboard/remove-admin" element={<RemoveAdmin />} />
                   <Route path="/dashboard/order-list" element={<BookingList />} />
+                  <Route path="/dashboard/order-report" element={<OrderReport />} />
+                  <Route path="/dashboard/customer-report" element={<CustomerReport />} />
                 </Route>
                 <Route path="/profile" element={<EditProfile />} />
               </Route>

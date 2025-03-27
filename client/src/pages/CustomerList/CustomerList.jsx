@@ -22,15 +22,23 @@ const CustomerList = ({ admin }) => {
 			setCustomers(res.data);
 		},
 	});
+	
 	if (response.isLoading || isLoading) {
 		return <div>Loading...</div>;
 	}
 
-	console.log("data: ", data);
+	const downloadReportHandler = () => {
+		window.open("/dashboard/customer-report", "_blank");
+	}
+
+	// console.log("data: ", data);
 
 	return (
 		<div className="customer-list-wrapper">
-			<h1>{admin ? "Admin list" : "Customer List"}</h1>
+			<div className="customer-list-header">
+				<h1>{admin ? "Admin list" : "Customer List"}</h1>
+				<button className="button" onClick={downloadReportHandler}>Download Report</button>
+			</div>
 			<div className="customer-list">
 				{customers
 					?.filter((customer) => {

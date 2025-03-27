@@ -1,0 +1,120 @@
+.customer-report {
+  display: flex;
+  flex-direction: column;
+  padding: 4rem;
+  background: #f1f1f1;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #333;
+}
+
+/* Report Title */
+.header h1 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  text-align: center;
+  flex: 1;
+}
+
+/* Right Header (Company Details) */
+.right-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+  width: 100%;
+  /* background-color: red; */
+}
+
+/* Table Styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table thead {
+  background-color: #333;
+  color: white;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+  max-width: 200px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  white-space: pre-wrap;
+}
+
+.table th {
+  background-color: #555;
+  color: white;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.button {
+  width: fit-content;
+  align-self: center;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: none;
+  }
+
+  .container {
+    box-shadow: none;
+    border: none;
+  }
+
+  .table {
+    page-break-inside: auto;
+  }
+
+  .table th,
+  .table td {
+    font-size: 12px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+}

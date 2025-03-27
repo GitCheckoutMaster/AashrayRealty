@@ -2,9 +2,11 @@ import { useQuery } from "react-query";
 import { getEveryBooking, getProperty } from "../../utils/api";
 import { useEffect, useState } from "react";
 import "./BookingListStyle.css";
+import { useNavigate } from "react-router-dom";
 
 const BookingList = () => {
 	const [property, setProperty] = useState([]);
+	const navigate = useNavigate();
 	const { data, isLoading } = useQuery(
 		"bookings",
 		async () => {
@@ -12,7 +14,6 @@ const BookingList = () => {
 			return response;
 		},
 	);
-
   
   useEffect(() => {
 		// console.log(property?.length, data?.length)
@@ -28,16 +29,24 @@ const BookingList = () => {
 				return prev;
 			});
 			
-      console.log(property);
+      // console.log(property);
     });
   }, [data]);
+
+	const downloadReportHandler = () => {
+		// navigate("/dashboard/order-report");
+		window.open("/dashboard/order-report", "_blank");
+	}
   
   if (isLoading) {
     return <div>Loading...</div>;
   }
 	return (
 		<div className="booking-list">
-			<h2>Booking List</h2>
+			<div className="booking-list-header">
+				<h2>Booking List</h2>
+				<button className="button" onClick={downloadReportHandler}>Download Report</button>
+			</div>
 			<div className="booking-list-content">
 				<table>
 					<thead>
