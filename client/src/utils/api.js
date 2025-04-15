@@ -151,7 +151,6 @@ export const getAllBookings = async (email, token) => {
 				},
 			}
 		);
-		console.log("All Bookings: ", res.data);
 		// return res.data["bookedVisits"];
 		return res.data;
 	} catch (error) {

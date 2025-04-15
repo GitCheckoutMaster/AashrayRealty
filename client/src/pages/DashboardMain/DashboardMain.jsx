@@ -1,26 +1,114 @@
 import { useQuery } from "react-query";
 import "./DashboardMainStyle.css";
 import { MdOutlineHouse } from "react-icons/md";
-import { getAllProperties } from "../../utils/api";
-import { useState } from "react";
+import { useMemo } from "react";
+import {
+	getEveryBooking,
+	getAllProperties,
+	getProperty,
+} from "../../utils/api";
+import { useEffect, useState } from "react";
 import { AgCharts } from "ag-charts-react";
 import { PuffLoader } from "react-spinners";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import "ag-charts-enterprise";
 
+
 const DashboardMain = () => {
 	const [properties, setProperties] = useState([]);
+	const [bookedProperties , setBookedProperties] = useState([]);
 	const [propertyLengths, setPropertyLengths] = useState([0, 0, 0, 0, 0]);
+	const [sale, setSale] = useState(new Array(12).fill(0));
+	const [rent, setRent] = useState(new Array(12).fill(0));
+
+	const lineChartOptions = useMemo(
+		() => ({
+			data: Array.from({ length: 12 }, (_, i) => ({
+				month: new Date(0, i).toLocaleString("default", { month: "short" }),
+				sales: sale[i],
+				rent: rent[i],
+			})),
+			padding: { top: 5, right: 5, bottom: 5, left: 5 },
+			animation: {
+				enabled: true,
+				duration: 1000,
+			},
+			series: [
+				{
+					type: "line",
+					xKey: "month",
+					yKey: "sales",
+					stroke: "#323ffa",
+					strokeWidth: 4,
+					marker: { enabled: false },
+					interpolation: { type: "smooth" },
+				},
+				{
+					type: "line",
+					xKey: "month",
+					yKey: "rent",
+					stroke: "#57fa32",
+					strokeWidth: 4,
+					marker: { enabled: false },
+					interpolation: { type: "smooth" },
+				},
+			],
+		}),
+		[sale, rent]
+	);
 
 	const res = useQuery("properties", getAllProperties, {
 		onSuccess: (data) => {
 			setProperties(data);
-			let forSale = data.filter((property) => property.propertyType === "for sale").length;
-			let forRent = data.filter((property) => property.propertyType === "for rent").length;
+			let forSale = data.filter(
+				(property) => property.propertyType === "for sale"
+			).length;
+			let forRent = data.filter(
+				(property) => property.propertyType === "for rent"
+			).length;
 			let total = data.length;
-			setPropertyLengths([forSale, forRent, total, forSale / total * 100, forRent / total * 100]);
+			setPropertyLengths([
+				forSale,
+				forRent,
+				total,
+				(forSale / total) * 100,
+				(forRent / total) * 100,
+			]);
 		},
 	});
+
+	const { data: allBookings, isLoading } = useQuery(
+		"bookings",
+		() => getEveryBooking(localStorage.getItem("access_token")),
+	);	
+
+	useEffect(() => {
+		if (!allBookings || properties.length === 0) return;
+	
+		let saleLocal = new Array(12).fill(0);
+		let rentLocal = new Array(12).fill(0);
+	
+		allBookings.forEach((booking) => {
+			const date = new Date(booking.createdAt);
+			const currentYear = new Date().getFullYear();
+	
+			if (currentYear === date.getFullYear()) {
+				const propertyType = properties.find(
+					(p) => p.id === booking.residencyId
+				)?.propertyType;
+	
+				if (propertyType === "for sale") {
+					saleLocal[date.getMonth()] += 1;
+				} else if (propertyType === "for rent") {
+					rentLocal[date.getMonth()] += 1;
+				}
+			}
+		});
+	
+		setSale(saleLocal);
+		setRent(rentLocal);
+	}, [allBookings, properties]);
+
 
 	if (res.isLoading) {
 		return (
@@ -43,7 +131,11 @@ const DashboardMain = () => {
 			<div className="total-properties-bottom-charts">
 				<div className="total-properties-forSell">
 					<div>
-						{properties?.filter((property) => property.propertyType === "for sale")?.length}
+						{
+							properties?.filter(
+								(property) => property.propertyType === "for sale"
+							)?.length
+						}
 						<br />
 						<span style={{ fontWeight: 300, fontSize: "1.2rem" }}>
 							Properties for sale
@@ -53,12 +145,12 @@ const DashboardMain = () => {
 						<AgCharts
 							options={{
 								data: [
-                  { name: "for sale", amount: propertyLengths[0] },
-                  { name: "", amount: propertyLengths[2] - propertyLengths[0] },
-                ],
+									{ name: "for sale", amount: propertyLengths[0] },
+									{ name: "", amount: propertyLengths[2] - propertyLengths[0] },
+								],
 								animation: {
 									enabled: true,
-                  duration: 1000,
+									duration: 1000,
 								},
 								height: 100,
 								width: 100,
@@ -99,10 +191,10 @@ const DashboardMain = () => {
 									{ name: "For rent", amount: propertyLengths[1] },
 									{ name: "", amount: propertyLengths[2] - propertyLengths[1] },
 								],
-                animation: {
-                  enabled: true,
-                  duration: 1000,
-                },
+								animation: {
+									enabled: true,
+									duration: 1000,
+								},
 								height: 100,
 								width: 100,
 								padding: { top: 5, right: 5, bottom: 5, left: 5 },
@@ -124,7 +216,7 @@ const DashboardMain = () => {
 										],
 									},
 								],
-                axes: [],
+								axes: [],
 							}}
 						/>
 					</div>
@@ -132,75 +224,33 @@ const DashboardMain = () => {
 			</div>
 			<div className="sales-overview">
 				<h2 style={{ paddingBottom: "1rem" }}>Sales Overview</h2>
-        <div className="sales-overview-icons">
-          <div>
-            <HiOutlineHomeModern size={50} style={{backgroundColor: "#323ffa", padding: "10px", borderRadius: "15px"}}/>
-            <span>Total sale</span>
-          </div>
-          <div>
-            <HiOutlineHomeModern size={50} style={{backgroundColor: "#57fa32", padding: "10px", borderRadius: "15px"}} />
-            <span>Total rent</span>
-          </div>
-        </div>
-        <div className="overview-chart">
-          <AgCharts
-            options={{
-              data: [
-                { month: "Jan", sales: 2, rent: 2 },
-                { month: "Feb", sales: 4, rent: 1 },
-                { month: "Mar", sales: 1, rent: 4 },
-                { month: "Apr", sales: 0, rent: 2 },
-                { month: "May", sales: 4, rent: 6 },
-                { month: "Jun", sales: 5, rent: 2 },
-                { month: "Jul", sales: 2, rent: 1 },
-                { month: "Aug", sales: 1, rent: 0 },
-                { month: "Sep", sales: 6, rent: 2 },
-                { month: "Oct", sales: 3, rent: 5 },
-                { month: "Nov", sales: 3, rent: 3 },
-                { month: "Dec", sales: 3, rent: 6 },
-              ],
-              padding: { top: 5, right: 5, bottom: 5, left: 5 },
-              animation: {
-                enabled: true,
-                duration: 1000,
-              },
-              series: [
-                {
-                  type: "line",
-                  xKey: "month",
-                  yKey: "sales",
-                  // fill: ["#ff3333"],
-                  stroke: "#323ffa",
-                  strokeWidth: 4,
-                  marker: {
-                    enabled: false,
-                    // shape: "circle",
-                    // size: 5,
-                  },
-                  interpolation: {
-                    type: "smooth",
-                  },
-                },
-                {
-                  type: "line",
-                  xKey: "month",
-                  yKey: "rent",
-                  // fill: ["#57fa32"],
-                  stroke: "#57fa32",
-                  strokeWidth: 4,
-                  marker: {
-                    enabled: false,
-                    // shape: "circle",
-                    // size: 5,
-                  },
-                  interpolation: {
-                    type: "smooth",
-                  },
-                },
-              ],
-            }}
-          />
-        </div>
+				<div className="sales-overview-icons">
+					<div>
+						<HiOutlineHomeModern
+							size={50}
+							style={{
+								backgroundColor: "#323ffa",
+								padding: "10px",
+								borderRadius: "15px",
+							}}
+						/>
+						<span>Total sale</span>
+					</div>
+					<div>
+						<HiOutlineHomeModern
+							size={50}
+							style={{
+								backgroundColor: "#57fa32",
+								padding: "10px",
+								borderRadius: "15px",
+							}}
+						/>
+						<span>Total rent</span>
+					</div>
+				</div>
+				<div className="overview-chart">
+					<AgCharts options={lineChartOptions} />
+				</div>
 			</div>
 		</div>
 	);
