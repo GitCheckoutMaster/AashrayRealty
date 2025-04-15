@@ -6,9 +6,11 @@ import UserDetailContext from "../../context/UserDetailContext.js";
 import { bookVisit } from "../../utils/api.js";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 const BookingModal = ({ opened, setOpened, email, propertyId }) => {
   const [value, setValue] = useState(null);
+  const navigate = useNavigate();
   const {
     userDetails: { token },
     setUserDetails,
@@ -28,6 +30,7 @@ const BookingModal = ({ opened, setOpened, email, propertyId }) => {
         },
       ],
     }));
+    navigate(`/properties/${propertyId}/invoice`);
   };
 
   const { mutate, isLoading } = useMutation({

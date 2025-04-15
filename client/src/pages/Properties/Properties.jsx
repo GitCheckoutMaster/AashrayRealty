@@ -5,9 +5,12 @@ import useProperties from "../../hooks/useProperties";
 import { PuffLoader } from "react-spinners";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
 import SearchFilter from "../../components/SearchFilter/SearchFilter";
+import { getEveryBooking } from "../../utils/api";
+import { useQuery } from "react-query";
 
 const Properties = () => {
 	const { data, isError, isLoading } = useProperties();
+	const [filteredData, setData] = useState(data);
 	const [filter, setFilter] = useState("");
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [minBudget, setMinBudget] = useState(0);
@@ -15,6 +18,27 @@ const Properties = () => {
 	const [propertyType, setPropertyType] = useState("");
 	const [type, setType] = useState("");
 	const searchRef = useRef(null);
+	const { data: bookings } = useQuery("bookings", () => getEveryBooking(localStorage.getItem("access_token")), {
+		refetchOnWindowFocus: false,
+		// onSuccess: (data) => {
+		// 	console.log(data);
+		// },
+	});
+
+	useEffect(() => {
+		if (!data || !bookings) return;
+	
+		const filtered = data.filter((property) => {
+			const booked = bookings.find(
+				(booking) => booking.residencyId === property.id
+			);
+			return !booked;
+		});
+	
+		setData(filtered);
+	}, [bookings, data]); // Only need to run when bookings change
+	
+	
 
 	useEffect(() => {
 		const handleClickOutside = (event) => {
@@ -75,15 +99,15 @@ const Properties = () => {
 				</div>
 
 				<div className="paddings flexCenter properties">
-					{data
-						.filter((property) => {
+					{filteredData
+						?.filter((property) => {
 							const matchesSearch =
 								property.title.toLowerCase().includes(filter.toLowerCase()) ||
 								property.city.toLowerCase().includes(filter.toLowerCase()) ||
 								property.country.toLowerCase().includes(filter.toLowerCase()) ||
 								property.address.toLowerCase().includes(filter.toLowerCase());
-							
-							const available = property.Booking ? true: false;
+
+							const available = property.Booking ? true : false;
 
 							const matchesBudget =
 								(minBudget === 0 || property.price >= minBudget) &&

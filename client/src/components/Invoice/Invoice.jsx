@@ -78,8 +78,8 @@ export default function Invoice() {
             </thead>
             <tbody>
               <tr>
-                <td className="border p-2">{property.data.title}</td>
-                <td className="border p-2 text-right">₹49,000</td>
+                <td className="border p-2">{property.data?.title}</td>
+                <td className="border p-2 text-right">₹5,000</td>
               </tr>
             </tbody>
           </table>
@@ -92,11 +92,11 @@ export default function Invoice() {
               </div>
               <div className="flex justify-between mb-2">
                 <span>Tax (10%):</span>
-                <span>₹4,900</span>
+                <span>₹500</span>
               </div>
               <div className="flex justify-between font-bold text-lg">
                 <span>Total:</span>
-                <span>₹53,900</span>
+                <span>₹5,500</span>
               </div>
             </div>
           </div>

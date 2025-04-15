@@ -77,7 +77,7 @@ const OrderReport = () => {
 							<br />
 						</p>
 						<p>
-							Date: <span id="currentDate"> {Date.now()} </span>
+							Date: <span id="currentDate"> {new Date().toLocaleDateString()} </span>
 						</p>
 					</div>
 					<h1>Booking Report</h1>

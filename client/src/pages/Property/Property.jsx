@@ -21,7 +21,6 @@ import ReviewCard from "../../components/ReviewCard/ReviewCard.jsx";
 import AskQuestion from "../../components/AskQuestion/AskQuestion.jsx";
 import QuestionCard from "../../components/QuestionCard/QuestionCard.jsx";
 import ImageSlider from "../../components/ImageSlider/ImageSlider.jsx";
-// import logo from "../../../public/logo.png";
 import Swal from "sweetalert2";
 
 
@@ -218,7 +217,7 @@ const Property = () => {
               <button
                 className="button"
                 onClick={async () => {
-                  const amount = 49000 * 100;
+                  const amount = 5500 * 100;
                   const currency = "INR";
 
                   if (validateLogin()) {
@@ -282,6 +281,9 @@ const Property = () => {
                       alert(response.error.reason);
                       alert(response.error.metadata.order_id);
                       alert(response.error.metadata.payment_id);
+                    });
+                    rzp1.on("payment.success", function (response) {
+                      console.log(response);
                     });
                     rzp1.open();
                   }
